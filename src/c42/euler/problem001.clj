@@ -3,21 +3,21 @@
 
 (ns c42.euler (:use clojure.test))
 
-(def natural-numbers (iterate inc 0))
-
-(defn natural-numbers-multiples-of-3-and-5-less-than 
-	[n]
-	n)
-
-(defn sum-multiples-less-than 
-	"Calculates the sum of all natural numbers smaller than the input that are multiples of 3 and 5" 
-	[n]
-	n)
-
 (defn multiple-of?
 	"Determines if a given natural number m is a multiple of another natural number n"
 	[n m]
 	(zero? (mod m n)))
+
+(defn natural-numbers-multiples-of-3-or-5-less-than 
+	[n]
+	(filter 
+	 (fn [x] (or (multiple-of? 3 x) (multiple-of? 5 x)))
+	 (range n)))
+
+(defn sum-multiples-less-than 
+	"Calculates the sum of all natural numbers smaller than the input that are multiples of 3 and 5" 
+	[n]
+	(reduce + (natural-numbers-multiples-of-3-or-5-less-than n)))
 
 (testing "The sum of all natural numbers that are multiples of 3 or 5"
 	(is (= 23 (sum-multiples-less-than 10)) "smaller than 10")
@@ -35,9 +35,9 @@
 		(is (multiple-of? 5 10))
 		(is (not (multiple-of? 5 6)))))
 
-(testing "Natural numbers"
-	(is (= (seq [0 1 2 3 4]) (take 5 natural-numbers))))
+(testing "Natural numbers upto"
+	(is (= '(0 1 2 3 4) (take 5 (range 5))))) ;; this is more in the vein of a how-to experiment with the range fn.
 
-(testing "filtering multiples of 3 and 5"
-	(is (= (seq [3 5 6 9]) (natural-numbers-multiples-of-3-and-5-less-than 10))))
+(testing "Filtering multiples of 3 or 5"
+	(is (= '(0 3 5 6 9) (natural-numbers-multiples-of-3-or-5-less-than 10))))
 
