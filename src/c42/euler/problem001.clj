@@ -21,7 +21,8 @@
 
 (testing "The sum of all natural numbers that are multiples of 3 or 5"
 	(is (= 23 (sum-multiples-less-than 10)) "smaller than 10")
-	(is (= 78 (sum-multiples-less-than 20)) "smaller than 20"))
+	(is (= 78 (sum-multiples-less-than 20)) "smaller than 20")
+	(is (= 233168 (sum-multiples-less-than 1000)) "smaller than 1000"))
 
 (testing "Multiples of"
 	(testing "3"
