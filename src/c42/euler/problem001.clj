@@ -8,22 +8,22 @@
 	[n]
 	n)
 
-(defn multiple-of-5?
-	"Determines if a given natural number is a multiple of 5"
-	[n]
-	(= 0 (mod n 5)))
+(defn multiple-of?
+	"Determines if a given natural number m is a multiple of another natural number n"
+	[n m]
+	(= 0 (mod m n)))
 
 (testing "The sum of all natural numbers that are multiples of 3 or 5"
 	(is (= 23 (sum-multiples-less-than 10)) "smaller than 10 is 23"))
 
 (testing "Multiples of"
 	(testing "3"
-		(is (not (multiple-of-3? 1)))
-		(is (multiple-of-3? 3))
-		(is (multiple-of-3? 6))
-		(is (not (multiple-of-3? 7))))
+		(is (not (multiple-of? 3 1)))
+		(is (multiple-of? 3 3))
+		(is (multiple-of? 3 6))
+		(is (not (multiple-of? 3 7))))
 	(testing "5"
-		(is (not (multiple-of-5? 1)))
-		(is (multiple-of-5? 5))
-		(is (multiple-of-5? 10))
-		(is (not (multiple-of-5? 6)))))
+		(is (not (multiple-of? 5 1)))
+		(is (multiple-of? 5 5))
+		(is (multiple-of? 5 10))
+		(is (not (multiple-of? 5 6)))))
