@@ -3,6 +3,8 @@
 
 (ns c42.euler (:use clojure.test))
 
+(def natural-numbers (iterate inc 0))
+
 (defn sum-multiples-less-than 
 	"Calculates the sum of all natural numbers smaller than the input that are multiples of 3 and 5" 
 	[n]
@@ -27,3 +29,7 @@
 		(is (multiple-of? 5 5))
 		(is (multiple-of? 5 10))
 		(is (not (multiple-of? 5 6)))))
+
+(testing "Natural numbers"
+	(testing "summation"
+		(is (= 1 1))))
