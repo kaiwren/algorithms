@@ -3,13 +3,17 @@ require 'spec_helper'
 describe Sudoku do
   include Sudoku
   [BruteForce].each do |alogrithm|
-    it "should solve a puzzle by " do
+    it "should solve a puzzle by #{alogrithm.name}" do
       Sudoku::Grid.new(valid_incomplete_grid).solve!.should == valid_complete_grid
     end    
     
-    it "just to easily diff it" do
-      Sudoku::Grid.new(valid_incomplete_grid).solve!.should == valid_incomplete_grid
-    end
+    # it "just to easily diff it" do
+    #   grid = Sudoku::Grid.new(valid_incomplete_grid)
+    #   puts "Before: #{grid.count}"
+    #   result = grid.solve!
+    #   puts "After: #{grid.count}"
+    #   result.should == valid_incomplete_grid
+    # end
   end 
 
   context "lookup" do
@@ -32,6 +36,11 @@ describe Sudoku do
   end
     
   context 'all squares filled' do
+    it "should know how many squares are filled" do
+      Grid.new(valid_complete_grid).count.should == 81
+      Grid.new(valid_incomplete_grid).count.should == 30
+    end
+    
     it "should know if a grid is filled" do
       Grid.new(valid_complete_grid).should be_filled
     end

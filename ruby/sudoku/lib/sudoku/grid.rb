@@ -23,6 +23,13 @@ module Sudoku
       grid.map{|r| r[i]}
     end
     
+    def count
+      grid.inject(0) do |sum, row|
+        sum += row.present.size
+        sum
+      end
+    end
+    
     def section(i, j)
       i += 1.0
       j += 1.0
