@@ -1,0 +1,1 @@
+(ns c42.sudoku (:use clojure.test))

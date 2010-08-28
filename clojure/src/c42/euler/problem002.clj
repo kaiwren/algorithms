@@ -3,11 +3,7 @@
 
 ;; Find the sum of all the even-valued terms in the sequence which do not exceed four million.
 
-(ns c42.euler (:use clojure.test))
-
-(defn backward-get
-	[vector index]
-	(get vector (- (count vector) index 1)))
+(ns c42.euler (:use clojure.test) (:require clojure.contrib.seq))
 
 (defn fibonacci
 	[fib n]
@@ -24,14 +20,22 @@
 	[n]
 	(reduce + (filter even? (fibonacci-upto n))))
 
+(def fibonacci-lazy
+  ((fn rfib [a b] 
+       (lazy-seq 
+				(cons a (rfib b (+ a b))))) 
+    1 2))
+
+(defn lazy-sum-of-even-fibonacci-terms-upto 
+	[n]
+	(reductions + 
+					(filter (fn [x]
+						(and (even? x) (< n x))) fibonacci-lazy)))
+
 (testing "Sum of even fibbonacci terms"
 	(is (= 44 (sum-of-even-fibonacci-terms-upto 50)))
-	(is (= 4613732 (sum-of-even-fibonacci-terms-upto 4000000))))
+	(is (= 4613732 (sum-of-even-fibonacci-terms-upto 4000000)))
+	(is (= 44 (lazy-sum-of-even-fibonacci-terms-upto 50))))
 
 (testing "Fibonacci"
 	(is (= '(8 5 3 2 1 1 0) (fibonacci [1 0] 10))))
-
-(testing "Extracting the last n digits"
-	(is (= 6 (backward-get [0 1 2 3 4 5 6] 0)))
-	(is (= 5 (backward-get [0 1 2 3 4 5 6] 1)))
-	(is (= 1 (backward-get [0 1 2 3 4 5 6] 5))))
